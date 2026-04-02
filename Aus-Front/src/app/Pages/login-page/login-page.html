@@ -1,0 +1,15 @@
+<div class="login-container">
+    <div class="login-card">
+        <dx-form [formData]="formData" [colCount]="1">
+            <dxi-item itemType="group">
+                <dxi-item dataField="username" [label]="{ text: 'Usuário' }">
+                    <dxi-validation-rule type="required" message="Usuário é obrigatório"></dxi-validation-rule>
+                </dxi-item>
+                <dxi-item dataField="password" [label]="{ text: 'Senha' }" [editorOptions]="{ mode: 'password' }">
+                    <dxi-validation-rule type="required" message="Senha é obrigatória"></dxi-validation-rule>
+                </dxi-item>
+            </dxi-item>
+            <dxi-item itemType="button" [buttonOptions]="loginButton"></dxi-item>
+        </dx-form>
+    </div>
+</div>

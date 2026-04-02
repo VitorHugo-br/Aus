@@ -1,0 +1,25 @@
+<dx-popup [width]="500" [height]="'auto'" [showTitle]="true" title="Novo Produto" [dragEnabled]="false"
+  [hideOnOutsideClick]="true" [(visible)]="isVisible">
+  <div *dxTemplate="let data of 'content'">
+    <dx-form #form [(formData)]="productData" [showColonAfterLabel]="true" [labelLocation]="'top'">
+      <dxi-item dataField="productName" [editorOptions]="{ placeholder: 'Nome' }">
+        <dxi-validation-rule type="required" message="Nome é obrigatório"></dxi-validation-rule>
+      </dxi-item>
+      <dxi-item dataField="productDescription" [editorOptions]="{ placeholder: 'Descrição' }"></dxi-item>
+      <dxi-item dataField="productPrice" editorType="dxNumberBox"
+        [editorOptions]="{ format: '#,##0.00', placeholder: 'Preço' }">
+        <dxi-validation-rule type="required" message="Preço é obrigatório"></dxi-validation-rule>
+      </dxi-item>
+      <dxi-item dataField="productQuantity" editorType="dxNumberBox"
+        [editorOptions]="{ showSpinButtons: true, placeholder: 'Quantidade' }">
+        <dxi-validation-rule type="required" message="Quantidade é obrigatória"></dxi-validation-rule>
+      </dxi-item>
+    </dx-form>
+
+    <div style="margin-top: 20px; display: flex; justify-content: flex-end; gap: 10px;">
+      <dx-button text="Cancelar" (onClick)="closeModal()"></dx-button>
+      <dx-button text="Salvar" type="success" [useSubmitBehavior]="true" (onClick)="saveForm()">
+      </dx-button>
+    </div>
+  </div>
+</dx-popup>

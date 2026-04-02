@@ -1,0 +1,86 @@
+<div class="products-page-container">
+    <div class="grid-container">
+        <dx-button
+            icon="add"
+            text="Adicionar"
+            (onClick)="onAddProduct()"
+        >
+        </dx-button>
+        <dx-data-grid
+            id="gridContainer"
+            [dataSource]="products"
+            keyExpr="id"
+            [allowColumnReordering]="true"
+            [rowAlternationEnabled]="true"
+            [showBorders]="true"
+            [width]="'100%'"
+            (onRowUpdating)="onRowUpdating($event)"
+            (onRowRemoving)="onRowRemoving($event)"
+        >
+            <dxo-paging [pageSize]="10"></dxo-paging>
+            <dxo-pager
+                [visible]="true"
+                [showPageSizeSelector]="true"
+                [allowedPageSizes]="[5, 10, 25, 50]"
+            ></dxo-pager>
+
+            <dxo-search-panel
+                [visible]="true"
+                [highlightCaseSensitive]="true"
+            ></dxo-search-panel>
+
+            <dxo-editing
+                mode="row"
+                [allowUpdating]="true"
+                [allowDeleting]="true"
+                [useIcons]="true"
+            ></dxo-editing>
+
+            <dxi-column type="buttons" [width]="110">
+                <dxi-button name="edit"></dxi-button>
+                <dxi-button name="delete"></dxi-button>
+            </dxi-column>
+
+            <dxi-column
+                dataField="id"
+                caption="ID"
+                dataType="string"
+                [allowEditing]="false"
+            ></dxi-column>
+
+            <dxi-column
+                dataField="productName"
+                caption="Nome do Produto"
+                dataType="string"
+            ></dxi-column>
+
+            <dxi-column
+                dataField="productDescription"
+                caption="Descrição"
+                dataType="string"
+            ></dxi-column>
+
+            <dxi-column
+                dataField="productPrice"
+                caption="Preço"
+                dataType="number"
+                [format]="{
+                    type: 'currency',
+                    currency: 'BRL',
+                    precision: 2
+                }"
+                alignment="right"
+            ></dxi-column>
+
+            <dxi-column
+                dataField="productQuantity"
+                caption="Quantidade"
+                dataType="number"
+                alignment="right"
+            ></dxi-column>
+
+        </dx-data-grid>
+    </div>
+    
+    <app-product-modal (onSave)="onSaveProduct($event)"></app-product-modal>
+</div>

@@ -1,0 +1,50 @@
+services:
+  mysql_db:
+    image: mysql:9.0
+    container_name: MySQL-Database
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: suppwd
+      MYSQL_DATABASE: Aus
+      MYSQL_USER: vitor_hugo
+      MYSQL_PASSWORD: vitorh
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "vitor_hugo", "--password=vitorh"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  api-aus:
+    container_name: API-Aus
+    build:
+      context: ./ProjetoAus  
+      dockerfile: ProjetoAus.Api/Dockerfile
+    restart: always
+    ports:
+      - "8080:8080" 
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Server=mysql_db;Database=Aus;Uid=vitor_hugo;Pwd=vitorh;
+      - Jwt__SecretKey=4N0l0sS55ik8PywY6U8gqckXrXUk8hUUrvFxVbpa7py4ekKXY99OD6MEuvT8YBvbpH27jyYeYS1nOf2Bs64uqoOQMjIblPqmSiDQKNPmaddQ1Im0xh3WyGsBLONyZQ6mah4yQPqe277X2bihz73fEbfjJVTxnkrzqO9kwPvUU7Sj6UnWZv9ZKa3ZYlNE6oLLsf5e6JPsRM1vr4x3qC0sLAjdDEbJ7irWMVIio0afc64nvwUmOYkQA9Crk4tHPm
+    depends_on:
+      mysql_db:
+        condition: service_healthy
+
+  front-aus:
+    container_name: Front-Aus
+    build:
+      context: ./Aus-Front
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "4200:80"
+    depends_on:
+      - api-aus
+
+
+volumes:
+  mysql_data:
