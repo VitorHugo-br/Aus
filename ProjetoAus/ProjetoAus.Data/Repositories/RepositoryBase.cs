@@ -1,41 +1,20 @@
-﻿using System.Linq.Expressions;
+using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 using ProjetoAus.Data.Context;
-using ProjetoAus.Data.interfaces;
 using ProjetoAus.Models;
 using ProjetoAus.Models.Interfaces;
 
 namespace ProjetoAus.Data.Repositories;
 
-public class RepositoryBase<TEntity>(AusDbContext ausDbContext) : IRepositoryBase<TEntity>
-    where TEntity : Entity
+public class RepositoryBase<TEntity>(AusDbContext ausDbContext) : IRepositoryBase<TEntity> where TEntity : Entity
 {
     private readonly DbSet<TEntity> _dbSet = ausDbContext.Set<TEntity>();
 
-    public async Task<List<TEntity>> GetAllAsync(
-        Expression<Func<TEntity, bool>>? filter = null,
-        int page = 1,
-        int pageSize = 10
-    )
+    public async Task<List<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>>? filter = null)
     {
         var query = _dbSet.AsQueryable();
 
-
-        if (filter != null)
-        {
-            query = query
-                .Where(filter)
-                .Skip((page - 1) * pageSize)
-                .Take(pageSize)
-                .AsNoTracking();
-        }
-        else
-        {
-            query = query
-                .Skip((page - 1) * pageSize)
-                .Take(pageSize)
-                .AsNoTracking();
-        }
+        query = filter != null ? query.Where(filter).AsNoTracking() : query.AsNoTracking();
 
         return await query.ToListAsync();
     }

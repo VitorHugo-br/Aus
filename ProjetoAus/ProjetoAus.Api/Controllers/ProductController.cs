@@ -14,9 +14,9 @@ public class ProductController(ProductService productService) : ControllerBase
 {
     [HttpGet]
     [Route("")]
-    public async Task<IActionResult> GetAll([FromQuery] int page = 1, [FromQuery] int pageSize = 10)
+    public async Task<IActionResult> GetAll()
     {
-        var products = await productService.GetAllAsync(page, pageSize);
+        var products = await productService.GetAllAsync();
         return Ok(products);
     }
 

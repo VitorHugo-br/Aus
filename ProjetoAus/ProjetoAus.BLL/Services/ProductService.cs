@@ -23,9 +23,9 @@ public class ProductService(IProductRepository productRepository)
         return newProduct;
     }
 
-    public async Task<IEnumerable<Product>> GetAllAsync(int page, int pageSize)
+    public async Task<IEnumerable<Product>> GetAllAsync()
     {
-        return await productRepository.GetAllAsync(page: page, pageSize: pageSize);
+        return await productRepository.GetAllAsync();
     }
 
     public async Task<Product?> GetByIdAsync(Guid id)

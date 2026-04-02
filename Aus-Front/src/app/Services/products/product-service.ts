@@ -15,18 +15,14 @@ export class ProductService {
 
   constructor(private http: HttpClient) { }
 
-  async getProducts(page: number, pageSize: number): Promise<Product[]> {
-
-    const params = new HttpParams()
-      .set('page', page)
-      .set('pageSize', pageSize);
+  async getProducts(): Promise<Product[]> {
 
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.token}`
     });
 
     var response: any = await firstValueFrom(
-      this.http.get(this.apiUrl, { headers, params })
+      this.http.get(this.apiUrl, { headers })
     );
 
     return response;

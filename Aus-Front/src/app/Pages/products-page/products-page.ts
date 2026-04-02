@@ -1,6 +1,6 @@
 import { Component, inject, OnInit, ViewChild } from '@angular/core';
 import { ProductService } from '../../Services/products/product-service';
-import { DxDataGridModule, DxButtonModule } from 'devextreme-angular';
+import { DxDataGridModule, DxButtonModule, DxDataGridComponent } from 'devextreme-angular';
 import { Product } from '../../Interfaces/product';
 import { ProductModalComponent } from '../../Components/product-modal/product-modal.component';
 import { CreateProduct } from '../../Interfaces/create-product';
@@ -15,6 +15,7 @@ import notify from 'devextreme/ui/notify';
 export class ProductsPage implements OnInit {
   
   @ViewChild(ProductModalComponent) productModal!: ProductModalComponent;
+  @ViewChild(DxDataGridComponent) dataGrid!: DxDataGridComponent;
 
   private productService = inject(ProductService);
   products: Product[] = [];
@@ -25,7 +26,7 @@ export class ProductsPage implements OnInit {
   }
   
   loadProducts() {
-    this.productService.getProducts(1, 10).then(response => {
+    this.productService.getProducts().then(response => {
       this.products = response;
     });
   }
