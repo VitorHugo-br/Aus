@@ -5,14 +5,18 @@
       <dxi-item dataField="productName" [editorOptions]="{ placeholder: 'Nome' }">
         <dxi-validation-rule type="required" message="Nome é obrigatório"></dxi-validation-rule>
       </dxi-item>
-      <dxi-item dataField="productDescription" [editorOptions]="{ placeholder: 'Descrição' }"></dxi-item>
+      <dxi-item dataField="productDescription" [editorOptions]="{ placeholder: 'Descrição' }">
+        <dxi-validation-rule type="required" message="Descrição é obrigatória"></dxi-validation-rule>
+      </dxi-item>
       <dxi-item dataField="productPrice" editorType="dxNumberBox"
         [editorOptions]="{ format: '#,##0.00', placeholder: 'Preço' }">
         <dxi-validation-rule type="required" message="Preço é obrigatório"></dxi-validation-rule>
+        <dxi-validation-rule type="range" [min]="0" message="Preço deve ser maior que 0"></dxi-validation-rule>
       </dxi-item>
       <dxi-item dataField="productQuantity" editorType="dxNumberBox"
         [editorOptions]="{ showSpinButtons: true, placeholder: 'Quantidade' }">
         <dxi-validation-rule type="required" message="Quantidade é obrigatória"></dxi-validation-rule>
+        <dxi-validation-rule type="range" [min]="0" message="Quantidade deve ser maior que 0"></dxi-validation-rule>
       </dxi-item>
     </dx-form>
 
