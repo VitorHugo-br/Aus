@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DxPopupModule, DxFormModule, DxButtonModule } from 'devextreme-angular';
+import { DxPopupModule, DxFormModule, DxButtonModule, DxValidationGroupComponent } from 'devextreme-angular';
 import { CreateProduct } from '../../Interfaces/create-product';
+import notify from 'devextreme/ui/notify';
 
 @Component({
   selector: 'app-product-modal',
@@ -10,7 +11,8 @@ import { CreateProduct } from '../../Interfaces/create-product';
     CommonModule,
     DxPopupModule,
     DxFormModule,
-    DxButtonModule
+    DxButtonModule,
+    DxValidationGroupComponent
   ],
   templateUrl: './product-modal.component.html',
   styleUrls: ['./product-modal.component.css']
@@ -35,15 +37,29 @@ export class ProductModalComponent {
       productPrice: 0,
       productQuantity: 0
     };
+
+    if (this.form?.instance) {
+      this.form.instance.resetValues();
+    }
+
     this.isVisible = true;
   }
 
   saveForm() {
+    const validationResult = this.form.instance.validate();
+
+    if (!validationResult.isValid) {
+      notify('Por favor, preencha os campos corretamente', 'error', 3000)
+      return;
+    }
+
     this.onSave.emit(this.productData);
     this.isVisible = false;
+
   }
 
   closeModal() {
     this.isVisible = false;
   }
+
 }
