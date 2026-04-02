@@ -36,7 +36,6 @@ export class LoginPage {
     try {
 
       var response = await this.authService.authorize(this.formData.username, this.formData.password);
-      console.log(response);
       if (response) {
         this.showToastSuccess();
         this.router.navigate(['/products']);
