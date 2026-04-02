@@ -15,7 +15,6 @@ import notify from 'devextreme/ui/notify';
 export class ProductsPage implements OnInit {
   
   @ViewChild(ProductModalComponent) productModal!: ProductModalComponent;
-  @ViewChild(DxDataGridComponent) dataGrid!: DxDataGridComponent;
 
   private productService = inject(ProductService);
   products: Product[] = [];
