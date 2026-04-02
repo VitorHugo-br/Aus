@@ -10,7 +10,8 @@ Na raiz do projeto, execute:
 docker compose up --build
 ```
 
-Acesse o sistema em: [http://localhost:4200](http://localhost:4200)
+Acesse o sistema em: [http://localhost:4200](http://localhost:4200)  \
+Documentação Api: [http://localhost:8080/scalar/](http://localhost:8080/scalar/)
 
 ## Login
 
